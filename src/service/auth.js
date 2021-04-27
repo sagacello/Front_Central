@@ -2,28 +2,25 @@ import { saveToken } from '../helpers/localStorageHelper';
 
 export async function fetchToken(userName, password) {
     const requestTokenUrl = 'http://localhost:8080/oauth/token'
-    const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
-    const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET;
+/*     const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
+    const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET; */
 
     const request = {  
         method: 'POST',
         headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Origin': '',
-          'Host': 'api.producthunt.com'
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Authorization': 'Basic ' + Buffer.from('jow:jowjow').toString('base64')
         },
-        body: JSON.stringify({
-          'client_id': CLIENT_ID,
-          'client_secret': CLIENT_SECRET,
-          'grant_type': 'password',
-          'username' : userName,
-          'password': password,
-        }),
+        body: 'grant_type=password&client_id=' + 'jow'
+          + '&client_secret=' + 'jowjow'
+          + '&username=' + userName
+          + '&password=' + password,
     };
     try {
         const response = await fetch(requestTokenUrl, request);
-        saveToken(response.json());
+        const { access_token } = await response.json();
+        console.log(access_token);
+        saveToken(access_token);
     }catch(error) {
         console.error(error);
     }

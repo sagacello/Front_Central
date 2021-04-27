@@ -1,6 +1,9 @@
 import 'semantic-ui-css/semantic.min.css';
 import React from 'react';
 import { Button, Form, Segment } from 'semantic-ui-react';
+import { fetchToken } from '../service/auth';
+
+const login = async ()  =>  await fetchToken('onfire', 'jowjow');
 
 const CustomLogin = ({
   formData: { email, password },
@@ -33,7 +36,7 @@ const CustomLogin = ({
         color="blue"
         fluid
         size="large"
-        onClick={onHandleSubmit}
+        onClick={login}
       >
         Login
       </Button>
