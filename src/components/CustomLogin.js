@@ -1,14 +1,12 @@
 import 'semantic-ui-css/semantic.min.css';
 import { Button, Form, Segment } from 'semantic-ui-react';
-import { fetchToken } from '../service/auth';
 
 
 function CustomLogin ({
-  formData: { email, password },
+  formData: { username, password },
   onInputChange,
-  // onHandleSubmit,
+  onHandleSubmit,
 }) {
-  const login = async ()  =>  await fetchToken(email, password);
   return (
   <Form size="large">
     <Segment stacked>
@@ -16,9 +14,9 @@ function CustomLogin ({
         fluid
         icon="user"
         iconPosition="left"
-        placeholder="E-mail address"
-        name="email"
-        value={email}
+        placeholder="Username"
+        name="username"
+        value={username}
         onChange={(e) => onInputChange(e)}
       />
       <Form.Input
@@ -36,7 +34,7 @@ function CustomLogin ({
         color="blue"
         fluid
         size="large"
-        onClick={async () => await login()}
+        onClick={async () => await onHandleSubmit()}
       >
         Login
       </Button>
