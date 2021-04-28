@@ -1,9 +1,10 @@
 import { saveToken } from '../helpers/localStorageHelper';
 
 export async function fetchToken(userName, password) {
+  console.log(userName, password);
     const requestTokenUrl = 'http://localhost:8080/oauth/token'
-/*     const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
-    const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET; */
+    // const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
+    // const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET;
 
     const request = {  
         method: 'POST',
@@ -11,8 +12,7 @@ export async function fetchToken(userName, password) {
           'Content-Type': 'application/x-www-form-urlencoded',
           'Authorization': 'Basic ' + Buffer.from('jow:jowjow').toString('base64')
         },
-        body: 'grant_type=password&client_id=' + 'jow'
-          + '&client_secret=' + 'jowjow'
+        body: 'grant_type=password'
           + '&username=' + userName
           + '&password=' + password,
     };
