@@ -5,7 +5,7 @@ import CustomHeader from '../components/CustomHeader';
 
 class Login extends Component {
   state = {
-    email: '',
+    userName: '',
     password: '',
   };
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Segment } from 'semantic-ui-react';
 
-const CustomAllErrors = ({ fromData }) => (
+const CustomAllErrors = ({ formData }) => (
   <Segment>
     <Grid columns={1} relaxed="very">
       <Grid.Column>
