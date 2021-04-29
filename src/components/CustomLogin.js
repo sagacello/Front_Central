@@ -14,7 +14,7 @@ const CustomLogin = ({
         icon="user"
         iconPosition="left"
         placeholder="Username"
-        name="username"
+        name="userName"
         value={userName}
         onChange={(e) => onInputChange(e)}
       />
