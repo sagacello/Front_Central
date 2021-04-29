@@ -8,10 +8,12 @@ import CustomInput from '../components/CustomInput';
 
 class Central extends Component {
   state = {
-    erro: '',
-    quantity: 0,
-    description: '',
-    data: Date,
+    error: {
+      erro: '',
+      quantity: 0,
+      description: '',
+      data: Date,
+    },
   };
   backToLogin = () => {
     const { history } = this.props;
@@ -31,7 +33,7 @@ class Central extends Component {
           <CustomHeader message="Filtrar erros" />
             <CustomInput />
             <CustomCheckbox />
-            <CustomAllErrors formData={this.state} />
+            <CustomAllErrors formData={this.state.error} />
           </Grid.Column>
         </Grid>
       </div>

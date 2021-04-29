@@ -3,7 +3,7 @@ import React from 'react';
 import { Button, Form, Segment } from 'semantic-ui-react';
 
 const CustomLogin = ({
-  formData: { username, password },
+  formData: { userName, password },
   onInputChange,
   onHandleSubmit,
 }) => (
@@ -15,7 +15,7 @@ const CustomLogin = ({
         iconPosition="left"
         placeholder="Username"
         name="username"
-        value={username}
+        value={userName}
         onChange={(e) => onInputChange(e)}
       />
       <Form.Input
