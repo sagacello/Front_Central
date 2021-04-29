@@ -19,7 +19,6 @@ export async function fetchToken(userName, password) {
         const response = await fetch(requestTokenUrl, request);
         const { access_token } = await response.json();
         if (access_token) {
-          alert('Login efetuado com sucesso!')
           saveToken(access_token);
           return access_token;
         } else {
@@ -50,7 +49,6 @@ export async function fetchToken(userName, password) {
     try {
         const response = await fetch(signUpNewUserUrl, request);
         if (response.status === 200) {
-          alert('Usuário cadastrado com sucesso!')
           return response.status;
         } else {
           alert('Erro no cadastro!')

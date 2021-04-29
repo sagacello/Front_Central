@@ -2,12 +2,11 @@ import 'semantic-ui-css/semantic.min.css';
 import React from 'react';
 import { Button, Form, Segment } from 'semantic-ui-react';
 
-function SignUpForm({
+const SignUpForm = ({
   formData: { name, userName, email, password },
   onInputChange,
   onHandleSubmit,
-}) {
-   return (
+}) => (
   <Form size="large">
     <Segment stacked>
     <Form.Input
@@ -45,6 +44,5 @@ function SignUpForm({
     </Segment>
   </Form>
 );
-   }
 
 export default SignUpForm;

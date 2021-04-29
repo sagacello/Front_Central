@@ -1,13 +1,12 @@
 import 'semantic-ui-css/semantic.min.css';
+import React from 'react';
 import { Button, Form, Segment } from 'semantic-ui-react';
 
-
-function CustomLogin ({
+const CustomLogin = ({
   formData: { username, password },
   onInputChange,
   onHandleSubmit,
-}) {
-  return (
+}) => (
   <Form size="large">
     <Segment stacked>
       <Form.Input
@@ -41,6 +40,5 @@ function CustomLogin ({
     </Segment>
   </Form>
 );
-  }
 
 export default CustomLogin;
