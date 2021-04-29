@@ -2,20 +2,24 @@ import React, { Component } from 'react';
 import CustomLogin from '../components/CustomLogin';
 import { Grid } from 'semantic-ui-react';
 import CustomHeader from '../components/CustomHeader';
+import { fetchToken } from '../service/auth';
 
 class Login extends Component {
   state = {
-    userName: '',
+    username: '',
     password: '',
   };
 
   handleInputChange = ({ target: { name, value } }) => {
     this.setState({ [name]: value });
   };
-  handleSubmit = () => {
+  handleSubmit = async () => {
+    const { username, password } = this.state;
+    const loginResponse = await fetchToken(username, password);
     const { history } = this.props;
-    history.push('/central');
-  };
+    if (loginResponse) history.push('/central')
+    else history.push('/login');
+  }; 
 
   render() {
     return (

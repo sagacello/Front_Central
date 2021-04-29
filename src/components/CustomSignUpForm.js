@@ -34,11 +34,12 @@ const SignUpForm = ({
         fluid
         placeholder="Password"
         value={password}
+        type="password"
         name="password"
         onChange={(e) => onInputChange(e)}
       />
 
-      <Button color="blue" fluid size="large" onClick={onHandleSubmit}>
+      <Button color="blue" fluid size="large" onClick={async () => await onHandleSubmit()}>
         Register
       </Button>
     </Segment>
