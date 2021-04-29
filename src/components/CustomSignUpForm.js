@@ -34,6 +34,7 @@ const SignUpForm = ({
         fluid
         placeholder="Password"
         value={password}
+        type="password"
         name="password"
         onChange={(e) => onInputChange(e)}
       />
