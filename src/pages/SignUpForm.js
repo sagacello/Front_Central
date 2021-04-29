@@ -19,7 +19,7 @@ class SignUp extends Component {
     const { name, email, userName, password } = this.state;
     const registerResponse = await fetchSignUp(name, email, userName, password);
     if (registerResponse === 200) history.push('/login'); 
-    else history.push('/'); 
+    history.push('/login'); 
   };
 
   handleInputChange = ({ target: { name, value } }) => {
