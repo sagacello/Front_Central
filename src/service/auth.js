@@ -1,7 +1,7 @@
 import { saveToken } from '../helpers/localStorageHelper';
 
 export async function fetchToken(userName, password) {
-    const requestTokenUrl = 'http://localhost:8080/oauth/token'
+    const requestTokenUrl = 'https://central-errors-events.herokuapp.com/oauth/token'
     // const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
     // const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET;
 
@@ -30,9 +30,7 @@ export async function fetchToken(userName, password) {
   }
 
   export async function fetchSignUp(name, email, userName, password) {
-    const signUpNewUserUrl = 'http://localhost:8080/v1/users'
-    // const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
-    // const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET;
+    const signUpNewUserUrl = 'https://central-errors-events.herokuapp.com/v1/users';
 
     const request = {  
         method: 'POST',
@@ -57,3 +55,26 @@ export async function fetchToken(userName, password) {
         console.error(error);
     }
   }
+
+/*   export async function fetchEvents(filters) {
+    const baseUrl = 'http://localhost:8080/v1/events?'
+
+    const request = {  
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+      })
+    };
+    try {
+        const response = await fetch(baseUrl, request);
+        if (response.status === 200) {
+          return response.status;
+        } else {
+          alert('Erro no cadastro!')
+        }
+    }catch(error) {
+        console.error(error);
+    }
+  } */

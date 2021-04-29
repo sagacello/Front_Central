@@ -6,7 +6,7 @@ import { fetchToken } from '../service/auth';
 
 class Login extends Component {
   state = {
-    username: '',
+    userName: '',
     password: '',
   };
 
@@ -14,8 +14,8 @@ class Login extends Component {
     this.setState({ [name]: value });
   };
   handleSubmit = async () => {
-    const { username, password } = this.state;
-    const loginResponse = await fetchToken(username, password);
+    const { userName, password } = this.state;
+    const loginResponse = await fetchToken(userName, password);
     const { history } = this.props;
     if (loginResponse) history.push('/central')
     history.push('/');
