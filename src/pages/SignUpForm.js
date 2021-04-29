@@ -4,6 +4,7 @@ import  CustomHeader from '../components/CustomHeader';
 import  CustomSignUpForm from '../components/CustomSignUpForm';
 import { Grid } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import { fetchSignUp } from '../service/auth';
 
 class SignUp extends Component {
   state = {
@@ -13,9 +14,12 @@ class SignUp extends Component {
     userName: '',
   };
 
-  handleSubmit = () => {
+  handleSubmit = async () => {
     const { history } = this.props;
-    history.push('/login'); 
+    const { name, email, userName, password } = this.state;
+    const registerResponse = await fetchSignUp(name, email, userName, password);
+    if (registerResponse === 200) history.push('/login'); 
+    else history.push('/'); 
   };
 
   handleInputChange = ({ target: { name, value } }) => {
@@ -37,7 +41,7 @@ class SignUp extends Component {
             onHandleSubmit={this.handleSubmit}
           />
           <CustomMessage>
-            Alaready have account? <Link to="/">Sing In</Link>
+            Alaready have account? <Link to="/login">Sing In</Link>
           </CustomMessage>
         </Grid.Column>
       </Grid>
