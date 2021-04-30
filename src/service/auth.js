@@ -1,7 +1,7 @@
 import { saveToken } from '../helpers/localStorageHelper';
 
 export async function fetchToken(userName, password) {
-    const requestTokenUrl = 'https://central-errors-events.herokuapp.com/oauth/token'
+    const requestTokenUrl = 'https://central-errors-events.herokuapp.com/oauth/token';
     // const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
     // const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET;
 

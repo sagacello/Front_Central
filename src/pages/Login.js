@@ -17,7 +17,7 @@ class Login extends Component {
     const { userName, password } = this.state;
     const loginResponse = await fetchToken(userName, password);
     const { history } = this.props;
-    if (loginResponse) history.push('/central')
+    if (loginResponse) return history.push('/central')
     history.push('/');
   }; 
 
