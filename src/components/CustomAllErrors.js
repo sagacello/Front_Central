@@ -6,15 +6,14 @@ const CustomAllErrors = () => {
   const { isFetching, allEvents } = useContext(CentralContext);
   if (isFetching) return <span>Carregando...</span>;
   else {
-    console.log(allEvents);
-    return allEvents.content.map((event) => (
+    return allEvents.map((event) => (
       <Segment>
         <Grid columns={1} relaxed="very">
           <Grid.Column>
-            <p>Error: {event.error}</p>
+            <p>Error: {event.level}</p>
             <p>Quantity: {event.quantity}</p>
             <p>Description: {event.description}</p>
-            <p>Data: {event.date}</p>
+            <p>Data: {event.eventDate}</p>
           </Grid.Column>
         </Grid>
       </Segment>

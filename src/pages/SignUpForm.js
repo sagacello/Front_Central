@@ -3,15 +3,15 @@ import  CustomMessage from '../components/CustomMessage';
 import  CustomHeader from '../components/CustomHeader';
 import  CustomSignUpForm from '../components/CustomSignUpForm';
 import { Grid } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { fetchSignUp } from '../service/auth';
 
 function SignUp() {
   
   const [formData, setFormData] = useState(new Map());
+  const history = useHistory();
 
   const handleSubmit = async () => {
-    const { history } = this.props;
     const name = formData.get('name');
     const userName = formData.get('userName');
     const email = formData.get('email');
