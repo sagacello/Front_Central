@@ -1,32 +1,32 @@
-import React, { Component } from 'react';
+import React, { useState, useCallback } from 'react';
 import  CustomMessage from '../components/CustomMessage';
 import  CustomHeader from '../components/CustomHeader';
 import  CustomSignUpForm from '../components/CustomSignUpForm';
 import { Grid } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { fetchSignUp } from '../service/auth';
 
-class SignUp extends Component {
-  state = {
-    email: '',
-    name: '',
-    password: '',
-    userName: '',
-  };
+function SignUp() {
+  
+  const [formData, setFormData] = useState(new Map());
+  const history = useHistory();
 
-  handleSubmit = async () => {
-    const { history } = this.props;
-    const { name, email, userName, password } = this.state;
+  const handleSubmit = async () => {
+    const name = formData.get('name');
+    const userName = formData.get('userName');
+    const email = formData.get('email');
+    const password = formData.get('password');
     const registerResponse = await fetchSignUp(name, email, userName, password);
     if (registerResponse === 200) history.push('/login'); 
     history.push('/login'); 
   };
 
-  handleInputChange = ({ target: { name, value } }) => {
-    this.setState({ [name]: value });
-  };
+  const handleInputChange = useCallback(({ target: { name, value } }) => {
+    setFormData(prevState => {
+      return new Map(prevState).set(name, value);
+    });
+  }, []);
 
-  render() {
     return (
       <Grid
         textAlign="center"
@@ -36,9 +36,9 @@ class SignUp extends Component {
         <Grid.Column style={{ maxWidth: 450 }}>
           <CustomHeader message="Central de Erros" />
           <CustomSignUpForm
-            formData={this.state}
-            onInputChange={this.handleInputChange}
-            onHandleSubmit={this.handleSubmit}
+            formData={formData}
+            onInputChange={handleInputChange}
+            onHandleSubmit={handleSubmit}
           />
           <CustomMessage>
             Alaready have account? <Link to="/login">Sing In</Link>
@@ -46,7 +46,6 @@ class SignUp extends Component {
         </Grid.Column>
       </Grid>
     );
-  }
 }
 
 

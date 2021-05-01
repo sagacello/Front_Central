@@ -1,7 +1,7 @@
-import { saveToken } from '../helpers/localStorageHelper';
+import { saveToken, getToken } from '../helpers/localStorageHelper';
 
 export async function fetchToken(userName, password) {
-    const requestTokenUrl = 'https://central-errors-events.herokuapp.com/oauth/token'
+    const requestTokenUrl = 'https://central-errors-events.herokuapp.com/oauth/token';
     // const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
     // const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET;
 
@@ -56,25 +56,25 @@ export async function fetchToken(userName, password) {
     }
   }
 
-/*   export async function fetchEvents(filters) {
-    const baseUrl = 'http://localhost:8080/v1/events?'
-
+   export async function fetchEventById(id) {
+    const baseUrl = `https://central-errors-events.herokuapp.com/v1/events/${id}`;
+    const token = getToken();
+    console.log(token);
     const request = {  
-        method: 'POST',
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
         },
-        body: JSON.stringify({
-      })
     };
     try {
         const response = await fetch(baseUrl, request);
         if (response.status === 200) {
           return response.status;
         } else {
-          alert('Erro no cadastro!')
+          alert('Erro na busca!')
         }
     }catch(error) {
         console.error(error);
     }
-  } */
+  } 

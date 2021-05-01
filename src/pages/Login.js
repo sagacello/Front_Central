@@ -1,27 +1,28 @@
-import React, { Component } from 'react';
+import React, { useState, useCallback } from 'react';
+import { useHistory } from 'react-router-dom';
 import CustomLogin from '../components/CustomLogin';
 import { Grid } from 'semantic-ui-react';
 import CustomHeader from '../components/CustomHeader';
 import { fetchToken } from '../service/auth';
 
-class Login extends Component {
-  state = {
-    userName: '',
-    password: '',
-  };
+function Login() {
+  const history = useHistory();
+  const [formData, setFormData] = useState(new Map());
 
-  handleInputChange = ({ target: { name, value } }) => {
-    this.setState({ [name]: value });
-  };
-  handleSubmit = async () => {
-    const { userName, password } = this.state;
+  const handleInputChange = useCallback(({ target: { name, value } }) => {
+    setFormData(prevState => {
+      return new Map(prevState).set(name, value);
+    });
+  }, []);
+
+  const handleSubmit = async () => {
+    const userName = formData.get('userName');
+    const password = formData.get('password');
     const loginResponse = await fetchToken(userName, password);
-    const { history } = this.props;
-    if (loginResponse) history.push('/central')
+    if (loginResponse) return history.push('/central')
     history.push('/');
   }; 
 
-  render() {
     return (
       <Grid
         textAlign="center"
@@ -32,14 +33,13 @@ class Login extends Component {
           <CustomHeader message="Central de Erros" />
 
           <CustomLogin
-            formData={this.state}
-            onInputChange={this.handleInputChange}
-            onHandleSubmit={this.handleSubmit}
+            formData={formData}
+            onInputChange={handleInputChange}
+            onHandleSubmit={handleSubmit}
           />
         </Grid.Column>
       </Grid>
     );
   }
-}
 
 export default Login;
