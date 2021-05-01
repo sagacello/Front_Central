@@ -78,18 +78,3 @@ export async function fetchToken(userName, password) {
         console.error(error);
     }
   } 
-
-   export async function fetchAllEvents() {
-    const baseUrl = 'https://central-errors-events.herokuapp.com/v1/events/all';
-    const token = getToken();
-    console.log(token);
-    const request = {  
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + token
-        },
-    };
-      const response = await fetch(baseUrl, request);
-      return response;
-  } 

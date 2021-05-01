@@ -10,7 +10,7 @@ import CentralContext from "../context/CentralContext";
 import { getToken } from "../helpers/localStorageHelper";
 
 function Central() {
-  const { setAllEvents, setIsFetching } = useContext(CentralContext);
+  const { setAllEvents, isFetching, setIsFetching } = useContext(CentralContext);
   const history = useHistory();
 
   useEffect(() => {
@@ -29,14 +29,14 @@ function Central() {
       .then((events) => {
         setAllEvents(events.content);
       });
-    setIsFetching(false);
   }, [setAllEvents, setIsFetching]);
 
   const backToLogin = async () => {
     history.push("/login");
   };
 
-  return (
+  if (isFetching) return <span>Carregando...</span>;
+  else return (
     <div>
       <CustomBack toLogin={backToLogin} />
       <Grid
