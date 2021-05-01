@@ -4,16 +4,16 @@ import React, { useState, useEffect } from 'react';
 import CentralContext from './CentralContext';
 
 function CentralContextProvider({ children }) {
-  const [allErrors, setAllErrors] = useState([]);
+  const [allEvents, setAllEvents] = useState([]);
   const [isFetching, setIsFetching] = useState(true);
   const [filters, setFilters] = useState([]);
   const [filteredErrors, setFilteredErrors] = useState([]);
 
   useEffect(() => {
-    if (allErrors !== undefined) {
+    if (allEvents !== undefined) {
       setIsFetching(false);
     }
-  }, [allErrors]);
+  }, [allEvents]);
 
  /*  const filterFoodByCategory = async (category) => {
     if (!filtered || filter !== category) {
@@ -46,8 +46,8 @@ function CentralContextProvider({ children }) {
       value={ {
         isFetching,
         setIsFetching,
-        allErrors,
-        setAllErrors,
+        allEvents,
+        setAllEvents,
         filters,
         setFilters,
         filteredErrors,

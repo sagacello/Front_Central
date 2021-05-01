@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import  CustomMessage from '../components/CustomMessage';
 import  CustomHeader from '../components/CustomHeader';
 import  CustomSignUpForm from '../components/CustomSignUpForm';
@@ -8,24 +8,24 @@ import { fetchSignUp } from '../service/auth';
 
 function SignUp() {
   
-  const [formData, setFormData] = useState({
-    email: '',
-    name: '',
-    password: '',
-    userName: '',
-  });
+  const [formData, setFormData] = useState(new Map());
 
   const handleSubmit = async () => {
     const { history } = this.props;
-    const { name, email, userName, password } = this.state;
+    const name = formData.get('name');
+    const userName = formData.get('userName');
+    const email = formData.get('email');
+    const password = formData.get('password');
     const registerResponse = await fetchSignUp(name, email, userName, password);
     if (registerResponse === 200) history.push('/login'); 
     history.push('/login'); 
   };
 
-  const handleInputChange = ({ target: { name, value } }) => {
-    setFormData({ [name]: value });
-  };
+  const handleInputChange = useCallback(({ target: { name, value } }) => {
+    setFormData(prevState => {
+      return new Map(prevState).set(name, value);
+    });
+  }, []);
 
     return (
       <Grid

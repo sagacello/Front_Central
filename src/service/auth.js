@@ -79,8 +79,8 @@ export async function fetchToken(userName, password) {
     }
   } 
 
-   export async function fetchEvents() {
-    const baseUrl = 'https://central-errors-events.herokuapp.com/v1/events';
+   export async function fetchAllEvents() {
+    const baseUrl = 'https://central-errors-events.herokuapp.com/v1/events/all';
     const token = getToken();
     console.log(token);
     const request = {  
@@ -90,14 +90,6 @@ export async function fetchToken(userName, password) {
           'Authorization': 'Bearer ' + token
         },
     };
-    try {
-        const response = await fetch(baseUrl, request);
-        if (response.status === 200) {
-          return response.status;
-        } else {
-          alert('Erro na busca!')
-        }
-    }catch(error) {
-        console.error(error);
-    }
+      const response = await fetch(baseUrl, request);
+      return response;
   } 

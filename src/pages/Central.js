@@ -1,33 +1,43 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import CustomAllErrors from '../components/CustomAllErrors';
 import { Grid } from 'semantic-ui-react';
 import CustomHeader from '../components/CustomHeader';
 import CustomBack from '../components/CustomBack';
 import CustomCheckbox from '../components/CustomCheckbox';
 import CustomInput from '../components/CustomInput';
-// import { fetchEvents } from '../service/auth';
+import CentralContext from '../context/CentralContext';
+import { getToken } from '../helpers/localStorageHelper';
+import { fetchAllEvents } from '../service/auth';
 
 function Central()  {
 
-  const [event, setEvent] = useState({
-    error: '',
-    quantity: 0,
-    description: '',
-    data: Date(),
-});
+  const { allEvents, setAllEvents, setIsFetching } = useContext(CentralContext);
+  const history = useHistory();
+
+  useEffect(() => {
+    setIsFetching(true);
+    const baseUrl = "https://central-errors-events.herokuapp.com/v1/events/all";
+    const token = getToken();
+    console.log(token);
+    const request = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    };
+    console.log(request);
+    fetch(baseUrl, request)
+      .then((response) => response.json())
+      .then((events) => {
+        setAllEvents(events);
+      });
+    setIsFetching(false);
+  }, []);
 
   const backToLogin = async () => {
-    // const { history } = this.props;
-    // history.push('/login');
-    // const event = await fetchEvents();
-    // console.log(event);
-    const event = {
-      error: 'ERROR',
-      quantity: 900,
-      description: 'erro do java',
-      date: '2020-07-22'
-    }
-    setEvent(event);
+    history.push("/login");
   };
 
     return (
@@ -42,7 +52,7 @@ function Central()  {
           <CustomHeader message="Filtrar erros" />
             <CustomInput />
             <CustomCheckbox />
-            <CustomAllErrors event={event} />
+            <CustomAllErrors />
           </Grid.Column>
         </Grid>
       </div>
