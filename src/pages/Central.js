@@ -1,29 +1,38 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import CustomAllErrors from '../components/CustomAllErrors';
 import { Grid } from 'semantic-ui-react';
 import CustomHeader from '../components/CustomHeader';
 import CustomBack from '../components/CustomBack';
 import CustomCheckbox from '../components/CustomCheckbox';
 import CustomInput from '../components/CustomInput';
+// import { fetchEvents } from '../service/auth';
 
-class Central extends Component {
-  state = {
-    error: {
-      erro: '',
-      quantity: 0,
-      description: '',
-      data: Date,
-    },
-  };
-  backToLogin = () => {
-    const { history } = this.props;
-    history.push('/login');
+function Central()  {
+
+  const [event, setEvent] = useState({
+    error: '',
+    quantity: 0,
+    description: '',
+    data: Date(),
+});
+
+  const backToLogin = async () => {
+    // const { history } = this.props;
+    // history.push('/login');
+    // const event = await fetchEvents();
+    // console.log(event);
+    const event = {
+      error: 'ERROR',
+      quantity: 900,
+      description: 'erro do java',
+      date: '2020-07-22'
+    }
+    setEvent(event);
   };
 
-  render() {
     return (
       <div>
-        <CustomBack toLogin={this.backToLogin} />
+        <CustomBack toLogin={backToLogin} />
         <Grid
           textAlign="center"
           style={{ height: '30vh' }}
@@ -33,12 +42,11 @@ class Central extends Component {
           <CustomHeader message="Filtrar erros" />
             <CustomInput />
             <CustomCheckbox />
-            <CustomAllErrors formData={this.state.error} />
+            <CustomAllErrors event={event} />
           </Grid.Column>
         </Grid>
       </div>
     );
   }
-}
 
 export default Central;
