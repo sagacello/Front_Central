@@ -1,15 +1,15 @@
 import { saveToken, getToken } from '../helpers/localStorageHelper';
 
+
 export async function fetchToken(userName, password) {
     const requestTokenUrl = 'https://central-errors-events.herokuapp.com/oauth/token';
-    // const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
-    // const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET;
+    const { REACT_APP_CLIENT_ID, REACT_APP_CLIENT_SECRET } = process.env;
 
     const request = {  
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
-          'Authorization': 'Basic ' + Buffer.from('admin:admin').toString('base64')
+          'Authorization': 'Basic ' + Buffer.from(`${REACT_APP_CLIENT_ID}:${REACT_APP_CLIENT_SECRET}`).toString('base64')
         },
         body: 'grant_type=password'
           + '&username=' + userName
@@ -30,7 +30,7 @@ export async function fetchToken(userName, password) {
   }
 
   export async function fetchSignUp(name, email, userName, password) {
-    const signUpNewUserUrl = 'https://central-errors-events.herokuapp.com/v1/users';
+    const signUpNewUserUrl = 'https://central-errors-events.herokuapp.com/api/v1/users';
 
     const request = {  
         method: 'POST',
@@ -57,7 +57,7 @@ export async function fetchToken(userName, password) {
   }
 
    export async function fetchEventById(id) {
-    const baseUrl = `https://central-errors-events.herokuapp.com/v1/events/${id}`;
+    const baseUrl = `https://central-errors-events.herokuapp.com/api/v1/events/${id}`;
     const token = getToken();
     console.log(token);
     const request = {  

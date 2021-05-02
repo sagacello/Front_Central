@@ -5,6 +5,7 @@ import CentralContext from './CentralContext';
 
 function CentralContextProvider({ children }) {
   const [allEvents, setAllEvents] = useState([]);
+  const [eventDetails, setEventDetails] = useState({});
   const [isFetching, setIsFetching] = useState(true);
   const [filters, setFilters] = useState([]);
   const [filteredErrors, setFilteredErrors] = useState([]);
@@ -48,6 +49,8 @@ function CentralContextProvider({ children }) {
         setIsFetching,
         allEvents,
         setAllEvents,
+        eventDetails,
+        setEventDetails,
         filters,
         setFilters,
         filteredErrors,

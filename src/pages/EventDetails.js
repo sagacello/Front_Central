@@ -1,25 +1,23 @@
 import React, { useContext, useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import CustomAllErrors from "../components/CustomAllErrors";
+import { useHistory, useParams } from "react-router-dom";
 import { Grid } from "semantic-ui-react";
 import CustomHeader from "../components/CustomHeader";
 import CustomBack from "../components/CustomBack";
-import CustomCheckbox from "../components/CustomCheckbox";
-import CustomInput from "../components/CustomInput";
 import LoadSpinner from "../LoadSpinner/LoadSpinner";
 import CentralContext from "../context/CentralContext";
 import { getToken } from "../helpers/localStorageHelper";
+import CustomEventDetails from "../components/CustomEventDetails";
 
-function Central() {
-  const { setAllEvents, isFetching, setIsFetching } = useContext(
+function EventDetails() {
+  const { id } = useParams();
+  const { setEventDetails, isFetching, setIsFetching } = useContext(
     CentralContext
   );
   const history = useHistory();
 
   useEffect(() => {
     setIsFetching(true);
-    const baseUrl =
-      "https://central-errors-events.herokuapp.com/api/v1/events/all";
+    const baseUrl = `https://central-errors-events.herokuapp.com/api/v1/events/${id}`;
     const token = getToken();
     const request = {
       method: "GET",
@@ -30,16 +28,17 @@ function Central() {
     };
     fetch(baseUrl, request)
       .then((response) => response.json())
-      .then((events) => {
-        setAllEvents(events.content);
+      .then((eventLog) => {
+        setEventDetails(eventLog);
       });
-  }, [setAllEvents, setIsFetching]);
+    setIsFetching(false);
+  }, [setEventDetails, setIsFetching, id]);
 
-  const backToLogin = async () => {
-    history.push("/login");
+  const backToCentral = () => {
+    history.push("/central");
   };
 
-  if (isFetching)
+  if (isFetching) {
     return (
       <div
         style={{
@@ -51,24 +50,23 @@ function Central() {
         <LoadSpinner />
       </div>
     );
-  else
+  } else {
     return (
       <div>
-        <CustomBack toLogin={backToLogin} />
+        <CustomBack toLogin={backToCentral} />
         <Grid
           textAlign="center"
           style={{ height: "30vh" }}
           verticalAlign="middle"
         >
           <Grid.Column style={{ maxWidth: 1600 }}>
-            <CustomHeader message="Filtrar erros" />
-            <CustomInput />
-            <CustomCheckbox />
-            <CustomAllErrors />
+            <CustomHeader message="Log do evento" />
+            <CustomEventDetails />
           </Grid.Column>
         </Grid>
       </div>
     );
+  }
 }
 
-export default Central;
+export default EventDetails;
